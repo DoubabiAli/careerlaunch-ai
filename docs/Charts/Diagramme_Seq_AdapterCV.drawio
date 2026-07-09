@@ -1,0 +1,109 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
+  <diagram name="Page-1" id="L3yGodH1o6skt7WyA6SL">
+    <mxGraphModel dx="2290" dy="2236" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-1" value="User" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;fontSize=18;strokeWidth=2;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="270" y="-200" width="35" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-2" value="Frontend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;fontSize=18;strokeWidth=2;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="550" y="-200" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-3" value="Backend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;fontSize=18;strokeWidth=2;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="750" y="-200" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-4" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;fontSize=18;strokeWidth=2;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="950" y="-200" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-5" value="AI" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;fontSize=18;strokeWidth=2;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="-200" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-6" value="Cliquer sur &quot;Adapter mon CV&quot;" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-1" target="bYF3tNoSyP-f8tySFBjE-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="494" y="-93" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-7" value="POST /cv/adapt" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-2" target="bYF3tNoSyP-f8tySFBjE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="734" y="-41" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-8" value="Charger le CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-3" target="bYF3tNoSyP-f8tySFBjE-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="934" y="11" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-9" value="CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-4" target="bYF3tNoSyP-f8tySFBjE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="937" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-10" value="Charger l&#39;offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-3" target="bYF3tNoSyP-f8tySFBjE-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="934" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-11" value="Offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-4" target="bYF3tNoSyP-f8tySFBjE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="937" y="167" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-12" value="Adapter le CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-3" target="bYF3tNoSyP-f8tySFBjE-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1034" y="219" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-13" value="Nouveau CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-5" target="bYF3tNoSyP-f8tySFBjE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1037" y="271" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-14" value="Sauvegarder le CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-3" target="bYF3tNoSyP-f8tySFBjE-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="934" y="323" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-15" value="Confirmation" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-4" target="bYF3tNoSyP-f8tySFBjE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="937" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-16" value="Nouveau CV" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-3" target="bYF3tNoSyP-f8tySFBjE-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="737" y="427" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bYF3tNoSyP-f8tySFBjE-17" value="Afficher le CV adapté" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;fontSize=18;strokeWidth=2;" edge="1" parent="1" source="bYF3tNoSyP-f8tySFBjE-2" target="bYF3tNoSyP-f8tySFBjE-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="497" y="479" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
