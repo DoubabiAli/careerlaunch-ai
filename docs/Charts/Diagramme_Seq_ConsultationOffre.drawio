@@ -1,0 +1,112 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.8 Chrome/140.0.7339.240 Electron/38.4.0 Safari/537.36" version="28.2.8">
+  <diagram name="Page-1" id="EPT38g1KtVU78EZyNZJE">
+    <mxGraphModel dx="2290" dy="2236" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-1" value="User" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="35" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-2" value="Frontend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="272" y="20" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-3" value="Backend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="472" y="20" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-4" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="730" y="20" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-5" value="AIService" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="930" y="20" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-6" value="LLM" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;strokeWidth=2;fontSize=18;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="1186" y="20" width="150" height="784" as="geometry" />
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-7" value="Cliquer sur une offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-1" target="uPYbPw32PL8fRFKiOfKY-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="127" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-8" value="GET /jobs/{id}" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-2" target="uPYbPw32PL8fRFKiOfKY-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="456" y="179" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-9" value="Charger l&#39;offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-3" target="uPYbPw32PL8fRFKiOfKY-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="685" y="231" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-10" value="Offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-4" target="uPYbPw32PL8fRFKiOfKY-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="688" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-11" value="Charger le profil utilisateur" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-3" target="uPYbPw32PL8fRFKiOfKY-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="685" y="335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-12" value="Profil" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-4" target="uPYbPw32PL8fRFKiOfKY-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="688" y="387" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-13" value="Envoyer profil + offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-3" target="uPYbPw32PL8fRFKiOfKY-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="785" y="439" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-14" value="Analyse de compatibilité" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-5" target="uPYbPw32PL8fRFKiOfKY-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1142" y="491" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-15" value="Score + recommandations" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-6" target="uPYbPw32PL8fRFKiOfKY-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1145" y="543" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-16" value="Résultat de l&#39;analyse" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-5" target="uPYbPw32PL8fRFKiOfKY-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="788" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-17" value="Offre + analyse IA" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-3" target="uPYbPw32PL8fRFKiOfKY-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="459" y="647" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uPYbPw32PL8fRFKiOfKY-18" value="Afficher le détail de l&#39;offre" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeWidth=2;fontSize=18;" edge="1" parent="1" source="uPYbPw32PL8fRFKiOfKY-2" target="uPYbPw32PL8fRFKiOfKY-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="233" y="699" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
