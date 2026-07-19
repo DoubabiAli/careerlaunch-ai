@@ -5,9 +5,11 @@
 
 CREATE TYPE application_status AS ENUM (
     'PENDING',
+    'REVIEWING',
     'INTERVIEW',
     'ACCEPTED',
-    'REJECTED'
+    'REJECTED',
+    'WITHDRAWN'
 );
 
 CREATE TYPE contract_type AS ENUM (
@@ -62,4 +64,26 @@ CREATE TYPE skill_level AS ENUM (
     'INTERMEDIATE',
     'ADVANCED',
     'EXPERT'
+);
+
+CREATE TYPE language_level AS ENUM (
+    'A1',
+    'A2',
+    'B1',
+    'B2',
+    'C1',
+    'C2',
+    'NATIVE'
+);
+
+CREATE TYPE remote_type AS ENUM (
+    'ONSITE',
+    'HYBRID',
+    'REMOTE'
+);
+
+CREATE TYPE job_offer_status AS ENUM (
+    'OPEN',
+    'CLOSED',
+    'EXPIRED'
 );
