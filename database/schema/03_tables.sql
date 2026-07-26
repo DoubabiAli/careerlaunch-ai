@@ -3,6 +3,10 @@
 -- Database Tables
 -- ============================================================
 
+-- ------------------------------------------------------------
+-- Reference Tables
+-- ------------------------------------------------------------
+
 CREATE TABLE language (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(100) NOT NULL UNIQUE
@@ -41,6 +45,10 @@ CREATE TABLE job_source (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- ------------------------------------------------------------
+-- User & Profile
+-- ------------------------------------------------------------
+
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -64,12 +72,7 @@ CREATE TABLE profiles (
     summary TEXT,
     profile_picture_url TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_profile_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE user_settings (
@@ -80,12 +83,7 @@ CREATE TABLE user_settings (
     email_notifications BOOLEAN NOT NULL DEFAULT TRUE,
     push_notifications BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_user_settings_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE job_preferences (
@@ -96,12 +94,7 @@ CREATE TABLE job_preferences (
     expected_salary NUMERIC(10,2),
     remote_type remote_type,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_job_preferences_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE job_alerts (
@@ -113,12 +106,7 @@ CREATE TABLE job_alerts (
     contract_type contract_type,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_job_alerts_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE notifications (
@@ -128,12 +116,7 @@ CREATE TABLE notifications (
     title VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
     is_read BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_notifications_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE activity_logs (
@@ -143,13 +126,12 @@ CREATE TABLE activity_logs (
     description TEXT,
     ip_address INET,
     user_agent TEXT,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_activity_logs_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- ------------------------------------------------------------
+-- Profile Content
+-- ------------------------------------------------------------
 
 CREATE TABLE cv (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -157,13 +139,17 @@ CREATE TABLE cv (
     title VARCHAR(150) NOT NULL,
     file_url TEXT,
     generation_status cv_generation_status NOT NULL DEFAULT 'PENDING',
+    score NUMERIC(5,2),
+    ats_score NUMERIC(5,2),
+    analysis_json JSONB,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    CONSTRAINT fk_cv_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE
+    CONSTRAINT chk_cv_score
+        CHECK (score IS NULL OR (score >= 0 AND score <= 100)),
+
+    CONSTRAINT chk_cv_ats_score
+        CHECK (ats_score IS NULL OR (ats_score >= 0 AND ats_score <= 100))
 );
 
 CREATE TABLE education (
@@ -178,12 +164,7 @@ CREATE TABLE education (
     is_current BOOLEAN NOT NULL DEFAULT FALSE,
     description TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_education_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE experience (
@@ -197,12 +178,35 @@ CREATE TABLE experience (
     is_current BOOLEAN NOT NULL DEFAULT FALSE,
     description TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
-    CONSTRAINT fk_experience_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE
+CREATE TABLE projects (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    technologies VARCHAR(255),
+    github_url TEXT,
+    demo_url TEXT,
+    start_date DATE,
+    end_date DATE,
+    is_current BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE certifications (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    organization VARCHAR(255),
+    issue_date DATE,
+    expiration_date DATE,
+    credential_url TEXT,
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE profile_skills (
@@ -212,16 +216,6 @@ CREATE TABLE profile_skills (
     level skill_level NOT NULL,
     years_of_experience NUMERIC(4,1),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_profile_skills_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_profile_skills_skill
-        FOREIGN KEY (skill_id)
-        REFERENCES skill(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT uq_profile_skill
         UNIQUE (profile_id, skill_id)
@@ -233,16 +227,6 @@ CREATE TABLE profile_languages (
     language_id UUID NOT NULL,
     level language_level NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_profile_languages_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_profile_languages_language
-        FOREIGN KEY (language_id)
-        REFERENCES language(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT uq_profile_language
         UNIQUE (profile_id, language_id)
@@ -256,17 +240,12 @@ CREATE TABLE documents (
     file_url TEXT NOT NULL,
     file_size BIGINT,
     mime_type VARCHAR(100),
-    uploaded_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_documents_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_documents_document_type
-        FOREIGN KEY (document_type_id)
-        REFERENCES document_type(id)
+    uploaded_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- ------------------------------------------------------------
+-- Jobs
+-- ------------------------------------------------------------
 
 CREATE TABLE job_offers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -286,16 +265,12 @@ CREATE TABLE job_offers (
     application_url TEXT,
     published_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_job_offers_company
-        FOREIGN KEY (company_id)
-        REFERENCES company(id),
-
-    CONSTRAINT fk_job_offers_source
-        FOREIGN KEY (job_source_id)
-        REFERENCES job_source(id)
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- ------------------------------------------------------------
+-- Applications & Matching
+-- ------------------------------------------------------------
 
 CREATE TABLE applications (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -305,21 +280,6 @@ CREATE TABLE applications (
     status application_status NOT NULL DEFAULT 'PENDING',
     applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_applications_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_applications_job_offer
-        FOREIGN KEY (job_offer_id)
-        REFERENCES job_offers(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_applications_cv
-        FOREIGN KEY (cv_id)
-        REFERENCES cv(id)
-        ON DELETE SET NULL,
 
     CONSTRAINT uq_profile_job_offer
         UNIQUE (profile_id, job_offer_id)
@@ -332,16 +292,6 @@ CREATE TABLE favorites (
     notes TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-    CONSTRAINT fk_favorites_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_favorites_job_offer
-        FOREIGN KEY (job_offer_id)
-        REFERENCES job_offers(id)
-        ON DELETE CASCADE,
-
     CONSTRAINT uq_favorite
         UNIQUE (profile_id, job_offer_id)
 );
@@ -351,28 +301,35 @@ CREATE TABLE job_matches (
     profile_id UUID NOT NULL,
     job_offer_id UUID NOT NULL,
     compatibility_score NUMERIC(5,2) NOT NULL,
+    skills_score NUMERIC(5,2),
+    education_score NUMERIC(5,2),
+    experience_score NUMERIC(5,2),
+    domain_score NUMERIC(5,2),
     match_reason TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_job_matches_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_job_matches_job_offer
-        FOREIGN KEY (job_offer_id)
-        REFERENCES job_offers(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT uq_job_match
         UNIQUE (profile_id, job_offer_id),
 
     CONSTRAINT chk_compatibility_score
-        CHECK (
-            compatibility_score >= 0
-            AND compatibility_score <= 100
-        )
+        CHECK (compatibility_score >= 0 AND compatibility_score <= 100),
+
+    CONSTRAINT chk_match_skills_score
+        CHECK (skills_score IS NULL OR (skills_score >= 0 AND skills_score <= 100)),
+
+    CONSTRAINT chk_match_education_score
+        CHECK (education_score IS NULL OR (education_score >= 0 AND education_score <= 100)),
+
+    CONSTRAINT chk_match_experience_score
+        CHECK (experience_score IS NULL OR (experience_score >= 0 AND experience_score <= 100)),
+
+    CONSTRAINT chk_match_domain_score
+        CHECK (domain_score IS NULL OR (domain_score >= 0 AND domain_score <= 100))
 );
+
+-- ------------------------------------------------------------
+-- Interview
+-- ------------------------------------------------------------
 
 CREATE TABLE interview_sessions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -383,19 +340,8 @@ CREATE TABLE interview_sessions (
     status interview_status NOT NULL DEFAULT 'NOT_STARTED',
     started_at TIMESTAMPTZ,
     completed_at TIMESTAMPTZ,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_interview_sessions_profile
-        FOREIGN KEY (profile_id)
-        REFERENCES profiles(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_interview_sessions_job_offer
-        FOREIGN KEY (job_offer_id)
-        REFERENCES job_offers(id)
-        ON DELETE SET NULL
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
 
 CREATE TABLE interview_questions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -404,11 +350,6 @@ CREATE TABLE interview_questions (
     question TEXT NOT NULL,
     category VARCHAR(100),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_interview_questions_session
-        FOREIGN KEY (interview_session_id)
-        REFERENCES interview_sessions(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT uq_session_question_order
         UNIQUE (interview_session_id, question_order)
@@ -422,11 +363,6 @@ CREATE TABLE interview_answers (
     ai_feedback TEXT,
     response_time_seconds INTEGER,
     answered_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_interview_answers_question
-        FOREIGN KEY (interview_question_id)
-        REFERENCES interview_questions(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT chk_ai_score
         CHECK (
@@ -447,11 +383,6 @@ CREATE TABLE interview_reports (
     recommendations TEXT,
     summary TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT fk_interview_reports_session
-        FOREIGN KEY (interview_session_id)
-        REFERENCES interview_sessions(id)
-        ON DELETE CASCADE,
 
     CONSTRAINT chk_overall_score
         CHECK (
