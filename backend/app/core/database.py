@@ -1,10 +1,10 @@
 from typing import Generator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import settings
-
+from app.models.base import Base
 
 # ==========================================================
 # SQLAlchemy Engine
@@ -27,14 +27,6 @@ SessionLocal = sessionmaker(
     autocommit=False,
     expire_on_commit=False,
 )
-
-
-# ==========================================================
-# Base Class
-# ==========================================================
-
-class Base(DeclarativeBase):
-    pass
 
 
 # ==========================================================

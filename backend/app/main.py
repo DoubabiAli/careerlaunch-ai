@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.router import api_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -8,18 +9,4 @@ app = FastAPI(
     debug=settings.DEBUG,
 )
 
-
-@app.get("/")
-def root():
-    return {
-        "message": "Welcome to CareerLaunch AI 🚀",
-        "version": settings.APP_VERSION,
-    }
-
-
-@app.get("/health")
-def health_check():
-    return {
-        "status": "healthy",
-        "database": "connected",
-    }
+app.include_router(api_router)
