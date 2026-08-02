@@ -1,14 +1,14 @@
-# Pydantic Schemas - Revision Guide
+# Schémas Pydantic - Guide de révision
 
-## What is Pydantic?
+## Qu'est-ce que Pydantic ?
 
-Pydantic is the data validation library used by FastAPI.
+Pydantic est la bibliothèque de validation de données utilisée par FastAPI.
 
-It validates incoming data, serializes outgoing data, and automatically generates API documentation.
+Elle valide les données entrantes, sérialise les données sortantes, et génère automatiquement la documentation de l'API.
 
-SQLAlchemy manages the database.
+SQLAlchemy gère la base de données.
 
-Pydantic manages the data exchanged between the client and the API.
+Pydantic gère les données échangées entre le client et l'API.
 
 ---
 
@@ -18,13 +18,13 @@ Pydantic manages the data exchanged between the client and the API.
 Client
    │
    ▼
-Pydantic Schema
+Schéma Pydantic
    │
    ▼
 CRUD / Service
    │
    ▼
-SQLAlchemy Model
+Modèle SQLAlchemy
    │
    ▼
 PostgreSQL
@@ -32,22 +32,22 @@ PostgreSQL
 
 ---
 
-# Why use Schemas?
+# Pourquoi utiliser des schémas ?
 
-Schemas are **NOT** database tables.
+Les schémas ne sont **PAS** des tables de base de données.
 
-They define:
+Ils définissent :
 
-- What data the client can send.
-- What data the API returns.
-- Validation rules.
-- Data types.
+- Les données que le client peut envoyer.
+- Les données que l'API renvoie.
+- Les règles de validation.
+- Les types de données.
 
 ---
 
-# Typical Structure
+# Structure typique
 
-For almost every model, create these schemas.
+Pour presque chaque modèle, créer ces schémas.
 
 ```
 UserBase
@@ -59,28 +59,28 @@ UserRead
 
 ---
 
-# Base Schema
+# Schéma de base (Base)
 
-Contains the common fields.
+Contient les champs communs.
 
-Example:
+Exemple :
 
 ```python
 class UserBase(BaseModel):
     email: EmailStr
 ```
 
-Every other schema inherits from it.
+Tous les autres schémas en héritent.
 
 ---
 
-# Create Schema
+# Schéma de création (Create)
 
-Used when creating a new object.
+Utilisé lors de la création d'un nouvel objet.
 
-Contains only the fields the client must provide.
+Contient uniquement les champs que le client doit fournir.
 
-Example:
+Exemple :
 
 ```python
 class UserCreate(UserBase):
@@ -91,13 +91,13 @@ POST /users
 
 ---
 
-# Update Schema
+# Schéma de mise à jour (Update)
 
-Used for PATCH or PUT requests.
+Utilisé pour les requêtes PATCH ou PUT.
 
-Almost every field is optional.
+Presque tous les champs sont optionnels.
 
-Example:
+Exemple :
 
 ```python
 class UserUpdate(BaseModel):
@@ -108,18 +108,18 @@ PATCH /users/{id}
 
 ---
 
-# Read Schema
+# Schéma de lecture (Read)
 
-Returned by the API.
+Renvoyé par l'API.
 
-Usually contains:
+Contient généralement :
 
 - id
 - created_at
 - updated_at
-- computed fields
+- champs calculés
 
-Example:
+Exemple :
 
 ```python
 class UserRead(UserBase):
@@ -144,17 +144,17 @@ model_config = ConfigDict(
 )
 ```
 
-Allows Pydantic to convert SQLAlchemy objects into Pydantic objects.
+Permet à Pydantic de convertir des objets SQLAlchemy en objets Pydantic.
 
-Without it:
+Sans cela :
 
 ```
 User ORM
       ↓
-❌ Error
+❌ Erreur
 ```
 
-With it:
+Avec cela :
 
 ```
 User ORM
@@ -166,21 +166,21 @@ UserRead
 
 # model_validate()
 
-Converts data into a Pydantic model.
+Convertit des données en modèle Pydantic.
 
-Example:
+Exemple :
 
 ```python
 user = UserRead.model_validate(data)
 ```
 
-Used internally by FastAPI.
+Utilisé en interne par FastAPI.
 
 ---
 
 # Validation
 
-Pydantic automatically validates:
+Pydantic valide automatiquement :
 
 - Email
 - UUID
@@ -192,19 +192,19 @@ Pydantic automatically validates:
 - bool
 - list
 
-Example:
+Exemple :
 
 ```python
 email: EmailStr
 ```
 
-Requires:
+Nécessite :
 
 ```
 email-validator
 ```
 
-Install:
+Installation :
 
 ```bash
 pip install email-validator
@@ -212,15 +212,15 @@ pip install email-validator
 
 ---
 
-# Optional Fields
+# Champs optionnels
 
-Required:
+Obligatoire :
 
 ```python
 name: str
 ```
 
-Optional:
+Optionnel :
 
 ```python
 phone: str | None = None
@@ -228,23 +228,23 @@ phone: str | None = None
 
 ---
 
-# Enum Fields
+# Champs Enum
 
-Example:
+Exemple :
 
 ```python
 status: JobOfferStatus
 ```
 
-Accepted values are only those defined in the Enum.
+Seules les valeurs définies dans l'Enum sont acceptées.
 
 ---
 
-# Nested Schemas
+# Schémas imbriqués
 
-A schema can contain another schema.
+Un schéma peut contenir un autre schéma.
 
-Example:
+Exemple :
 
 ```python
 class CompanyRead(BaseModel):
@@ -254,7 +254,7 @@ class JobOfferRead(BaseModel):
     company: CompanyRead
 ```
 
-Useful for relationships.
+Utile pour les relations.
 
 ---
 
@@ -262,33 +262,33 @@ Useful for relationships.
 
 SQLAlchemy
 
-- Database
+- Base de données
 - Tables
-- Relationships
-- Queries
+- Relations
+- Requêtes
 
 Pydantic
 
 - Validation
-- API input
-- API output
-- Serialization
+- Entrée de l'API
+- Sortie de l'API
+- Sérialisation
 
 ---
 
-# Testing Schemas
+# Tester les schémas
 
-## 1. Import Test
+## 1. Test d'import
 
 ```python
 from app.schemas.user import *
 ```
 
-Verifies imports.
+Vérifie les imports.
 
 ---
 
-## 2. Object Creation
+## 2. Création d'objet
 
 ```python
 user = UserCreate(
@@ -297,7 +297,7 @@ user = UserCreate(
 )
 ```
 
-Verifies validation.
+Vérifie la validation.
 
 ---
 
@@ -307,20 +307,20 @@ Verifies validation.
 UserRead.model_validate(data)
 ```
 
-Verifies ORM compatibility.
+Vérifie la compatibilité avec l'ORM.
 
 ---
 
-# Common Errors
+# Erreurs courantes
 
-## Missing dependency
+## Dépendance manquante
 
 ```
 ImportError:
 email-validator is not installed
 ```
 
-Solution:
+Solution :
 
 ```bash
 pip install email-validator
@@ -328,31 +328,31 @@ pip install email-validator
 
 ---
 
-## Missing Required Field
+## Champ obligatoire manquant
 
 ```
 ValidationError
 Field required
 ```
 
-Means a required field was not provided.
+Signifie qu'un champ obligatoire n'a pas été fourni.
 
 ---
 
-## Invalid Enum
+## Enum invalide
 
 ```
 AttributeError:
 InterviewStatus.PENDING
 ```
 
-Means the Enum value does not exist.
+Signifie que la valeur de l'Enum n'existe pas.
 
 ---
 
-# Best Practices
+# Bonnes pratiques
 
-✅ One schema file per model
+✅ Un fichier de schémas par modèle
 
 ```
 schemas/
@@ -361,52 +361,52 @@ schemas/
     company.py
 ```
 
-✅ Separate Create / Update / Read
+✅ Séparer Create / Update / Read
 
-✅ Never expose passwords
+✅ Ne jamais exposer les mots de passe
 
-✅ Use EmailStr for emails
+✅ Utiliser EmailStr pour les emails
 
-✅ Use UUID types
+✅ Utiliser les types UUID
 
-✅ Use ConfigDict(from_attributes=True)
+✅ Utiliser ConfigDict(from_attributes=True)
 
-✅ Validate everything before CRUD
-
----
-
-# What We Completed
-
-✔ Created schemas for every SQLAlchemy model.
-
-✔ Created Base/Create/Update/Read schemas.
-
-✔ Configured `from_attributes=True`.
-
-✔ Validated all imports.
-
-✔ Tested object creation.
-
-✔ Tested `model_validate()`.
-
-✔ Fixed Enum inconsistencies.
-
-✔ Installed `email-validator`.
-
-✔ Confirmed all schemas work correctly.
+✅ Tout valider avant le CRUD
 
 ---
 
-# Next Step
+# Ce que nous avons accompli
+
+✔ Création des schémas pour chaque modèle SQLAlchemy.
+
+✔ Création des schémas Base/Create/Update/Read.
+
+✔ Configuration de `from_attributes=True`.
+
+✔ Validation de tous les imports.
+
+✔ Test de la création d'objets.
+
+✔ Test de `model_validate()`.
+
+✔ Correction des incohérences d'Enum.
+
+✔ Installation de `email-validator`.
+
+✔ Confirmation que tous les schémas fonctionnent correctement.
+
+---
+
+# Prochaine étape
 
 ```
-Models ✅
+Modèles ✅
 Alembic ✅
-Schemas ✅
+Schémas ✅
 
 ↓
 
 CRUD (Repositories)
 ```
 
-The CRUD layer will interact directly with SQLAlchemy models and use these Pydantic schemas to validate requests and responses.
+La couche CRUD interagira directement avec les modèles SQLAlchemy et utilisera ces schémas Pydantic pour valider les requêtes et les réponses.
