@@ -5,6 +5,7 @@ from uuid import UUID
 from sqlalchemy import Boolean, DateTime, String, func
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import text
 
 from app.models.base import Base
 
@@ -21,8 +22,9 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True),
-        primary_key=True,
+    PG_UUID(as_uuid=True),
+    primary_key=True,
+    server_default=text("gen_random_uuid()"),
     )
 
     email: Mapped[str] = mapped_column(
