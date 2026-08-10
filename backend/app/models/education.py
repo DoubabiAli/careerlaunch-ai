@@ -1,8 +1,17 @@
 from datetime import date, datetime
 from typing import TYPE_CHECKING
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from sqlalchemy import Boolean, Date, DateTime, Enum as SQLEnum, ForeignKey, String, Text, func
+from sqlalchemy import (
+    Boolean,
+    Date,
+    DateTime,
+    Enum as SQLEnum,
+    ForeignKey,
+    String,
+    Text,
+    func,
+)
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -19,6 +28,7 @@ class Education(Base):
     id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         primary_key=True,
+        default=uuid4,
     )
 
     profile_id: Mapped[UUID] = mapped_column(
@@ -51,22 +61,29 @@ class Education(Base):
         nullable=False,
     )
 
-    end_date: Mapped[date | None] = mapped_column(Date)
+    end_date: Mapped[date | None] = mapped_column(
+        Date,
+    )
 
     is_current: Mapped[bool] = mapped_column(
         Boolean,
         server_default="false",
+        nullable=False,
     )
 
-    description: Mapped[str | None] = mapped_column(Text)
+    description: Mapped[str | None] = mapped_column(
+        Text,
+    )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
+        nullable=False,
         server_default=func.now(),
     )
 
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
+        nullable=False,
         server_default=func.now(),
     )
 
@@ -74,5 +91,5 @@ class Education(Base):
         back_populates="educations",
     )
 
-    def __repr__(self):
-        return f"<Education({self.degree})>"
+    def __repr__(self) -> str:
+        return f"<Education(id={self.id}, degree='{self.degree}')>"

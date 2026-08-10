@@ -7,13 +7,13 @@ from app.models.enums import EducationLevel
 
 
 class EducationBase(BaseModel):
-    institution_name: str
+    institution: str
     degree: str
-    field_of_study: str | None = None
+    field: str | None = None
     education_level: EducationLevel
     start_date: date
     end_date: date | None = None
-    grade: str | None = None
+    is_current: bool = False
     description: str | None = None
 
 
@@ -22,13 +22,13 @@ class EducationCreate(EducationBase):
 
 
 class EducationUpdate(BaseModel):
-    institution_name: str | None = None
+    institution: str | None = None
     degree: str | None = None
-    field_of_study: str | None = None
+    field: str | None = None
     education_level: EducationLevel | None = None
     start_date: date | None = None
     end_date: date | None = None
-    grade: str | None = None
+    is_current: bool | None = None
     description: str | None = None
 
 
