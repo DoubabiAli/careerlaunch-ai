@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
@@ -10,12 +10,14 @@ from app.models.base import Base
 if TYPE_CHECKING:
     from app.models.profile_skill import ProfileSkill
 
+
 class Skill(Base):
     __tablename__ = "skill"
 
     id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         primary_key=True,
+        default=uuid4,
     )
 
     name: Mapped[str] = mapped_column(
