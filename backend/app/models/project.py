@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from typing import TYPE_CHECKING
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from sqlalchemy import Boolean, Date, DateTime, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
@@ -15,7 +15,11 @@ if TYPE_CHECKING:
 class Project(Base):
     __tablename__ = "projects"
 
-    id: Mapped[UUID] = mapped_column(PG_UUID(as_uuid=True), primary_key=True)
+    id: Mapped[UUID] = mapped_column(
+    PG_UUID(as_uuid=True),
+    primary_key=True,
+    default=uuid4,
+    )
 
     profile_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),

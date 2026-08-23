@@ -3,11 +3,13 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
 
+from app.models.enums import ContractType
+
 
 class ExperienceBase(BaseModel):
     company_name: str
     job_title: str
-    location: str | None = None
+    contract_type: ContractType | None = None
     start_date: date
     end_date: date | None = None
     is_current: bool = False
@@ -21,7 +23,7 @@ class ExperienceCreate(ExperienceBase):
 class ExperienceUpdate(BaseModel):
     company_name: str | None = None
     job_title: str | None = None
-    location: str | None = None
+    contract_type: ContractType | None = None
     start_date: date | None = None
     end_date: date | None = None
     is_current: bool | None = None
