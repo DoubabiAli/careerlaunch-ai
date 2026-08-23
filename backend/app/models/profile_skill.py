@@ -2,7 +2,15 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import DateTime, Enum as SQLEnum, ForeignKey, Numeric, UniqueConstraint, func
+from sqlalchemy import (
+    DateTime,
+    Enum as SQLEnum,
+    ForeignKey,
+    Numeric,
+    UniqueConstraint,
+    func,
+    text,
+)
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -25,22 +33,35 @@ class ProfileSkill(Base):
         ),
     )
 
-    id: Mapped[UUID] = mapped_column(PG_UUID(as_uuid=True), primary_key=True)
+    id: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
+    )
 
     profile_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
-        ForeignKey("profiles.id", ondelete="CASCADE"),
+        ForeignKey(
+            "profiles.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
     skill_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
-        ForeignKey("skill.id", ondelete="CASCADE"),
+        ForeignKey(
+            "skill.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
     level: Mapped[SkillLevel] = mapped_column(
-        SQLEnum(SkillLevel, name="skill_level"),
+        SQLEnum(
+            SkillLevel,
+            name="skill_level",
+        ),
         nullable=False,
     )
 
@@ -53,5 +74,20 @@ class ProfileSkill(Base):
         server_default=func.now(),
     )
 
-    profile: Mapped["Profile"] = relationship(back_populates="skills")
-    skill: Mapped["Skill"] = relationship(back_populates="profiles")
+    profile: Mapped["Profile"] = relationship(
+        back_populates="skills",
+    )
+
+    skill: Mapped["Skill"] = relationship(
+        back_populates="profiles",
+    )
+
+    def __repr__(self) -> str:
+        return (
+            f"<ProfileSkill("
+            f"id={self.id}, "
+            f"profile_id={self.profile_id}, "
+            f"skill_id={self.skill_id}, "
+            f"level='{self.level}'"
+            f")>"
+        )
